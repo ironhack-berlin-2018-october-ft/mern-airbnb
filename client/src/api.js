@@ -52,16 +52,16 @@ export default {
       .get('/logout')
   },
 
-  getCountries() {
+  getHomes() {
     return service
-      .get('/countries')
+      .get('/homes')
       .then(res => res.data)
       .catch(errHandler)
   },
 
-  postCountries(data) {
+  addHome(data) {
     return service
-      .post('/countries', data)
+      .post('/homes', data)
       .then(res => res.data)
       .catch(errHandler)
   },
@@ -72,8 +72,6 @@ export default {
       .then(res => res.data)
       .catch(errHandler)
   },
-
-
 
   addPicture(file) {
     const formData = new FormData()

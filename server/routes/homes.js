@@ -14,12 +14,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', isLoggedIn, (req, res, next) => {
-  let { description, pricePerNight, lng, lat } = req.body
+  let { title, description, pricePerNight, lng, lat } = req.body
   let _owner = req.user._id
-  if (!description || !pricePerNight || !lng || !lat) {
-    next(new Error('You have to send: description, pricePerNight, lng, lat'))
+  if (!title || !description || !pricePerNight || !lng || !lat) {
+    next(new Error('You have to send: title, description, pricePerNight, lng, lat'))
   }
   Home.create({
+    title,
     description,
     pricePerNight,
     location: {
