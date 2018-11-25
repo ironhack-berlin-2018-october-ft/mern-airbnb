@@ -80,7 +80,7 @@ class AddHome extends Component {
       zoom: 5
     })
 
-    // Add zoom control on the top left corner
+    // Add zoom control on the top right corner
     this.map.addControl(new mapboxgl.NavigationControl())
 
     // Create a marker on the map

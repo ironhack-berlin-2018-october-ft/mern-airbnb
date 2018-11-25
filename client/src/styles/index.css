@@ -6346,6 +6346,7 @@ body {
   font-size: large; }
 
 .MainNavbar {
+  height: 60px;
   margin-bottom: 20px; }
   .MainNavbar .logo {
     height: 40px;
@@ -6355,6 +6356,20 @@ body {
 
 .Home p {
   font-size: 1.2em; }
+
+.Homes {
+  margin-top: -20px; }
+  .Homes .row {
+    height: calc(100vh - 60px); }
+    .Homes .row .col-text {
+      padding: 20px;
+      overflow-y: scroll; }
+      .Homes .row .col-text h2 {
+        text-align: center; }
+      .Homes .row .col-text h4 {
+        margin-top: 40px; }
+    .Homes .row .map {
+      height: 100%; }
 
 .Secret .result {
   font-size: 1.2em;

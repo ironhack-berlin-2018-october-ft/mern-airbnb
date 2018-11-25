@@ -3,7 +3,8 @@
 // --------------------
 // Definition of variables
 $primary: #1ebbff;
-
+$marginBottomNavbar: 20px;
+$navbarHeight: 60px;
 
 // ----------------------------------------
 // To install Boostrap:
@@ -63,7 +64,8 @@ body {
 }
 
 .MainNavbar {
-  margin-bottom: 20px;
+  height: $navbarHeight;
+  margin-bottom: $marginBottomNavbar;
   .logo {
     height: 40px;
     padding-bottom: 4px;
@@ -78,6 +80,32 @@ body {
 .Home {
   p {
     font-size: 1.2em;
+  }
+}
+
+.Homes {
+  margin-top: -$marginBottomNavbar;
+
+  .row {
+    height: calc(100vh - #{$navbarHeight});
+    
+    .col-text {
+      padding: 20px;
+      overflow-y: scroll;
+
+      h2 {
+        text-align: center;
+      }
+
+      h4 {
+        margin-top: 40px;
+      }
+    }
+
+    .map {
+      height: 100%;
+      // height: calc(100vh - #{$navbarHeight});
+    }
   }
 }
 

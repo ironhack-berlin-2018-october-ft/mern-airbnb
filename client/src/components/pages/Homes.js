@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
+import { NavLink, Route, Switch } from 'react-router-dom'
+import {
+  Button,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from 'reactstrap'
+import HomeDetail from './HomeDetail'
 import api from '../../api';
+
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 
 class Homes extends Component {
   constructor(props) {
@@ -7,12 +18,48 @@ class Homes extends Component {
     this.state = {
       homes: []
     }
+    this.mapRef = React.createRef()
+    this.map = null
+    this.markers = []
+  }
+  initMap() {
+    // Embed the map where "this.mapRef" is defined in the render
+    this.map = new mapboxgl.Map({
+      container: this.mapRef.current,
+      style: 'mapbox://styles/mapbox/streets-v10',
+      center: [13.37, 52.51], // Berlin lng,lat
+      zoom: 5
+    })
+
+    // Add zoom control on the top right corner
+    this.map.addControl(new mapboxgl.NavigationControl())
+  }
+  handleHomeSelection(iSelected) {
+    this.map.setCenter(this.state.homes[iSelected].location.coordinates)
   }
   render() {
     return (
       <div className="Homes">
-        <h2>List of homes</h2>
-        {this.state.homes.map(c => <li key={c._id}>{c.title} by {c._owner.username}</li>)}
+        <Row>
+          <Col sm={3} className="col-text">
+            <ListGroup>
+              {this.state.homes.map((h, i) => (
+                <ListGroupItem key={h._id} action tag={NavLink} to={"/homes/" + h._id} onClick={() => this.handleHomeSelection(i)}>
+                  {h.title} by {h._owner.username}
+                </ListGroupItem>
+              ))}
+            </ListGroup>
+          </Col>
+          <Col sm={4} className="col-text">
+            <Switch>
+              <Route path="/homes/:id" render={(props) => <HomeDetail {...props} homes={this.state.homes} />} />
+              <Route render={() => <h2>Select a home</h2>} />
+            </Switch>
+          </Col>
+          <Col sm={5}>
+            <div ref={this.mapRef} className="map"></div>
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -21,10 +68,20 @@ class Homes extends Component {
       .then(homes => {
         console.log(homes)
         this.setState({
-          homes: homes
+          homes: homes.map(home => {
+            const [lng, lat] = home.location.coordinates
+            return {
+              ...home,
+              marker: new mapboxgl.Marker({ color: 'red' })
+                .setLngLat([lng, lat])
+                .on('click', () => { console.log("clicked") })
+                .addTo(this.map)
+            }
+          })
         })
       })
       .catch(err => console.log(err))
+    this.initMap()
   }
 }
 
