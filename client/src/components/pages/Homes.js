@@ -27,7 +27,7 @@ class Homes extends Component {
     this.map = new mapboxgl.Map({
       container: this.mapRef.current,
       style: 'mapbox://styles/mapbox/streets-v10',
-      center: [13.37, 52.51], // Berlin lng,lat
+      center: [0, 0], // Africa lng,lat
       zoom: 5
     })
 
@@ -82,6 +82,13 @@ class Homes extends Component {
       })
       .catch(err => console.log(err))
     this.initMap()
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        let center = [position.coords.longitude,position.coords.latitude]
+        this.map.setCenter(center)
+      })
+    }
   }
 }
 
