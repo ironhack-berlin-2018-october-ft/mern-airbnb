@@ -13,6 +13,10 @@ import api from '../../api'
 
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl'
 
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocodingClient = mbxGeocoding({ accessToken: 'pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ' });
+
+
 
 class AddHome extends Component {
   constructor(props) {
@@ -23,7 +27,8 @@ class AddHome extends Component {
       pricePerNight: 0,
       lng: 13.3711224,
       lat: 52.5063688,
-      message: null
+      message: null,
+      searchResults: []
     }
     this.mapRef = React.createRef()
     this.map = null
@@ -90,13 +95,36 @@ class AddHome extends Component {
 
     // Trigger a function every time the marker is dragged
     this.marker.on('drag', () => {
-      let {lng,lat} = this.marker.getLngLat()
+      let { lng, lat } = this.marker.getLngLat()
       console.log('DEBUG lng, lat', lng, lat)
       this.setState({
         lng,
         lat
       })
     })
+  }
+  handleSearchChange = (e) => {
+    let value = e.target.value
+    geocodingClient
+      .forwardGeocode({
+        query: value,
+        // limit: 2
+      })
+      .send()
+      .then(response => {
+        console.log(response.body.features)
+        this.setState({
+          searchResults: response.body.features
+        })
+      });
+  }
+  handleSearchResultClick({center}) {
+    this.setState({
+      lng: center[0],
+      lat: center[1],
+    })
+    this.map.setCenter(center)
+    this.marker.setLngLat(center)
   }
   render() {
     return (
@@ -135,6 +163,20 @@ class AddHome extends Component {
                       <Input type="number" value={this.state.lat} name="lat" min="-90" max="90" onChange={this.handleInputChange} />
                     </Col>
                   </Row>
+                </Col>
+              </FormGroup>
+
+              <FormGroup row>
+                <Label for="title" xl={3}>Place</Label>
+                <Col xl={9}>
+                  <Input type="text" value={this.state.search} name="search" onChange={this.handleSearchChange} />
+
+                  {this.state.searchResults.map(result => (
+                    <div onClick={() => this.handleSearchResultClick(result)}>
+                      {(result.place_name)}
+                      <hr/>
+                    </div>
+                  ))}
                 </Col>
               </FormGroup>
 

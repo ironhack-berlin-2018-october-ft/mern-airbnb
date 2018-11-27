@@ -2,7 +2,7 @@
 
 // --------------------
 // Definition of variables
-$primary: #1ebbff;
+$primary: #425cbb;
 $marginBottomNavbar: 20px;
 $navbarHeight: 60px;
 
@@ -64,7 +64,7 @@ body {
 }
 
 .MainNavbar {
-  height: $navbarHeight;
+  min-height: $navbarHeight;
   margin-bottom: $marginBottomNavbar;
   .logo {
     height: 40px;
