@@ -6,6 +6,7 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
+  Container,
 } from 'reactstrap'
 import HomeDetail from './HomeDetail'
 import api from '../../api';

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Container,
+} from 'reactstrap'
 
 class Home extends Component {
   // constructor(props) {
@@ -8,11 +11,11 @@ class Home extends Component {
   // }
   render() {                
     return (
-      <div className="Home">
+      <Container className="Home">
         <h2>Home</h2>
         <p>This is a sample project with the MERN stack</p>
         <button className="btn btn-primary">Hello</button>
-      </div>
+      </Container>
     );
   }
 }
