@@ -1,31 +1,13 @@
 # MERN Airbnb
 
-## Download
+## Introduction
 
-## Commands
+Your goal is to recreate a very simple Airbnb clone. You can find an example here: https://mern-airbnb.herokuapp.com
 
-Fork and clone the project
-
-```sh
-git clone https://github.com/ironhack-berlin-2018-october-ft/mern-airbnb.git
-cd mern-airbnb
-npm install
-```
-
-### Files to add
-
-You should have a `server/.env` file, with for example the following values:
-```
-PORT=5000
-SESSION_SECRET=anyValue
-MONGODB_URI=......
-CLOUDINARY_CLOUD_NAME=......
-CLOUDINARY_API_KEY=......
-CLOUDINARY_API_SECRET=......
-```
+To reproduce this lab, you have to use the MERN boilerplate (and not this repository that is the solution).
 
 
-## How to add a Map with Mapbox?
+## Lesson | How to add a Map with Mapbox?
 
 ### Initialisation to do the first time
 
@@ -94,6 +76,12 @@ export default MapboxExample
 
 ## Instructions
 
-- Reproduce the same with the MERN boilerplate
-- Create a '/my-homes' page
-- Let people add pictures on their home
+### Setup
+
+First, create a new project by using the MERN boilerplate: https://github.com/mc100s/mern-boilerplate
+
+### Create Home feature
+
+The task is the following one: "The user should be able to add a Home".
+
+WIP
